@@ -23,6 +23,8 @@ using TOHE.Roles.Impostor;
 using TOHE.Roles.Neutral;
 using UnityEngine;
 using static TOHE.Translator;
+using TOHE.Roles.AddOns.Common;
+using HarmonyLib;
 
 namespace TOHE;
 
@@ -392,6 +394,53 @@ public static class Utils
         if (!Main.roleColors.TryGetValue(role, out var hexColor)) hexColor = "#ffffff";
         return hexColor;
     }
+    public static string[] RoleIsLabel = [];
+
+    public static void RunLabelTRUE(string labeladdon)
+    {
+        RoleIsLabel.AddItem(labeladdon);
+
+        string infoshort = (labeladdon + "Info");
+        RoleIsLabel.AddItem(infoshort);
+        string infolong = (labeladdon + "InfoLong");
+        RoleIsLabel.AddItem(infolong);
+    }
+    public static string GetAddOnLabel(string labeladdon)
+    {
+        if (!RoleIsLabel.Contains(labeladdon)) return labeladdon;
+
+
+        string getAddon = labeladdon.Replace("InfoLong", "").Replace("Info", "");
+        string infoshort = (getAddon + "Info");
+        string infolong = (getAddon + "InfoLong");
+
+
+        switch (getAddon)
+        {
+            case "Flash":
+                if (Flash.FlashLabel.GetInt() == 0)
+                    getAddon = "Flash";
+                if (Flash.FlashLabel.GetInt() == 1)
+                    getAddon = "Slow";
+            goto default;
+                
+
+            default:
+                if (!labeladdon.Contains("Info"))
+                    return getAddon;
+
+                if (labeladdon.Contains("Info") && !labeladdon.Contains("InfoLong"))
+                    return infoshort;
+
+                if (labeladdon.Contains("InfoLong"))
+                    return infolong;
+                break;
+
+                
+        }
+
+        return labeladdon;
+    }
     public static (string, Color) GetRoleText(byte seerId, byte targetId, bool pure = false)
     {
         string RoleText = "Invalid Role";
@@ -419,11 +468,13 @@ public static class Utils
                 {
                     foreach (var subRole in targetSubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Madmate and not CustomRoles.Charmed and not CustomRoles.Recruit and not CustomRoles.Admired and not CustomRoles.Soulless and not CustomRoles.Lovers and not CustomRoles.Infected and not CustomRoles.Contagious).ToArray())
                         RoleText = ColorString(GetRoleColor(subRole), GetString("PrefixB." + subRole.ToString())) + RoleText;
+                    
                 }
                 if (!Options.ImpEgoistVisibalToAllies.GetBool())
                 {
                     foreach (var subRole in targetSubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Madmate and not CustomRoles.Charmed and not CustomRoles.Recruit and not CustomRoles.Admired and not CustomRoles.Soulless and not CustomRoles.Lovers and not CustomRoles.Infected and not CustomRoles.Contagious).ToArray())
                         RoleText = ColorString(GetRoleColor(subRole), GetString("PrefixB." + subRole.ToString())) + RoleText;
+                    
                 }
             }
             else if (!Options.AddBracketsToAddons.GetBool())
@@ -432,11 +483,13 @@ public static class Utils
                 {
                     foreach (var subRole in targetSubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Madmate and not CustomRoles.Charmed and not CustomRoles.Recruit and not CustomRoles.Admired and not CustomRoles.Soulless and not CustomRoles.Lovers and not CustomRoles.Infected and not CustomRoles.Contagious).ToArray())
                         RoleText = ColorString(GetRoleColor(subRole), GetString("Prefix." + subRole.ToString())) + RoleText;
+                    
                 }
                 if (!Options.ImpEgoistVisibalToAllies.GetBool())
                 {
                     foreach (var subRole in targetSubRoles.Where(x => x is not CustomRoles.LastImpostor and not CustomRoles.Madmate and not CustomRoles.Charmed and not CustomRoles.Recruit and not CustomRoles.Admired and not CustomRoles.Soulless and not CustomRoles.Lovers and not CustomRoles.Infected and not CustomRoles.Contagious).ToArray())
                         RoleText = ColorString(GetRoleColor(subRole), GetString("Prefix." + subRole.ToString())) + RoleText;
+                    
                 }
             }
         }

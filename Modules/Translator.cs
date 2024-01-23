@@ -179,6 +179,7 @@ public static class Translator
         var langId = TranslationController.InstanceExists ? TranslationController.Instance.currentLanguage.languageID : SupportedLangs.English;
         if (console) langId = SupportedLangs.English;
         if (Main.ForceOwnLanguage.Value) langId = GetUserTrueLang();
+        s = Utils.GetAddOnLabel(s); // Add-On label system for add-ons that can be configured both positive & negative
         string str = GetString(s, langId, showInvalid);
         if (replacementDic != null)
             foreach (var rd in replacementDic)
