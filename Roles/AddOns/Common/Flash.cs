@@ -27,7 +27,7 @@ public static class Flash
             .SetParent(CustomRoleSpawnChances[CustomRoles.Flash])
             .SetValueFormat(OptionFormat.Multiplier);
 
-        Utils.RunLabelTRUE("Flash");
+         Utils.RunLabelTRUE("Flash");
     }
     public static void SetSpeed(byte playerId, bool clearAddOn)
     {

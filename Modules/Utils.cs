@@ -25,6 +25,7 @@ using UnityEngine;
 using static TOHE.Translator;
 using TOHE.Roles.AddOns.Common;
 using HarmonyLib;
+using MS.Internal.Xml.XPath;
 
 namespace TOHE;
 
@@ -394,21 +395,22 @@ public static class Utils
         if (!Main.roleColors.TryGetValue(role, out var hexColor)) hexColor = "#ffffff";
         return hexColor;
     }
-    public static string[] RoleIsLabel = [];
+    static List<string> RoleIsLabel = [];
 
     public static void RunLabelTRUE(string labeladdon)
     {
-        RoleIsLabel.AddItem(labeladdon);
+
+        Logger.Info($"{RoleIsLabel.ToArray()}", "TESTLABEL");
+        RoleIsLabel.Add(labeladdon);
 
         string infoshort = (labeladdon + "Info");
-        RoleIsLabel.AddItem(infoshort);
+        RoleIsLabel.Add(infoshort);
         string infolong = (labeladdon + "InfoLong");
-        RoleIsLabel.AddItem(infolong);
+        RoleIsLabel.Add(infolong);
     }
     public static string GetAddOnLabel(string labeladdon)
     {
         if (!RoleIsLabel.Contains(labeladdon)) return labeladdon;
-
 
         string getAddon = labeladdon.Replace("InfoLong", "").Replace("Info", "");
         string infoshort = (getAddon + "Info");
