@@ -361,6 +361,7 @@ static class CustomRolesHelper
             CustomRoles.Silent or
             CustomRoles.Rainbow or
             CustomRoles.Susceptible or
+            CustomRoles.Haste or
             CustomRoles.Tired;
     }
     
@@ -1706,6 +1707,13 @@ static class CustomRolesHelper
             case CustomRoles.Silent:
                 if (pc.Is(CustomRoles.Dictator) || pc.Is(CustomRoles.VoidBallot)) return false;
                 if ((pc.GetCustomRole().IsCrewmate() && !Silent.CanBeOnCrew.GetBool()) || (pc.GetCustomRole().IsNeutral() && !Silent.CanBeOnNeutral.GetBool()) || (pc.GetCustomRole().IsImpostor() && !Silent.CanBeOnImp.GetBool()))
+                    return false;
+                break;
+
+            case CustomRoles.Haste:
+                if ((pc.GetCustomRole().IsCrewmate() && !Haste.CanBeOnCrew.GetBool()) || (pc.GetCustomRole().IsNeutral() && !Haste.CanBeOnNeutral.GetBool()) || (pc.GetCustomRole().IsImpostor() && !Haste.CanBeOnImp.GetBool()))
+                    return false;
+                if (!pc.HasImpKillButton())
                     return false;
                 break;
 

@@ -381,6 +381,7 @@
   "Oiiai": "OIIAI",
   "Influenced": "Influenced",
   "Silent": "Silent",
+  "Haste": "Haste",
   "Susceptible": "Susceptible",
   "Tricky": "Tricky",
   "Rainbow": "Rainbow",
@@ -446,6 +447,7 @@
   "Prefix.Influenced": "Influenced ",
   "Prefix.Cyber": "Cyber ",
   "Prefix.Silent": "Silent ",
+  "Prefix.Haste": "Haste ",
   "Prefix.Susceptible": "Susceptible ",
   "Prefix.Tricky": "Tricky ",
   "Prefix.Rainbow": "Rainbow ",
@@ -511,6 +513,7 @@
   "PrefixB.Cyber": "(Cyber) ",
   "PrefixB.Influenced": "(Influenced) ",
   "PrefixB.Silent": "(Silent) ",
+  "PrefixB.Haste": "(Haste) ",
   "PrefixB.Susceptible": "(Susceptible) ",
   "PrefixB.Tricky": "(Tricky) ",
   "PrefixB.Rainbow": "(Rainbow) ",
@@ -803,6 +806,7 @@
   "HurriedInfo": "God I got too much stuffs!",
   "InfluencedInfo": "You lack decisiveness!",
   "SilentInfo": "Vote like a Ghost!",
+  "HasteInfo": "Your kill cooldown always lowers",
   "SusceptibleInfo": "Deathreason lotto!",
   "TrickyInfo": "Tricky slays, in mysterious ways.",
   "TiredInfo": "Labor makes you rest Zzz..",
@@ -1098,6 +1102,7 @@
   "NimbleInfoLong": "(Add-ons):\nAs the Nimble, you gain access to the vent button.\n\nOnly assigned to certain crewmates.",
   "InfluencedInfoLong": "(Add-ons):\nAs the Influenced, your vote will be forced to the player with the most votes.\nInfluenced vote won't be counted while choosing the exiled player'\nNote that your vote skill still functions on the player you voted first\nIf all the alive players are Influenced,then the vote result won't shift\nCollector cannot become influenced.",
   "SilentInfoLong": "(Add-ons):\nAs the Silent, your vote icon won't appear on the result screen.\nSo nobody knows who you voted for.",
+  "HasteInfoLong": "(Add-ons):\nAs the Haste, your kill cooldown decreases even in vents. Effect only activates after first kill or meeting.",
   "SusceptibleInfoLong": "(Add-ons):\nAs the Susceptible, your death reason will be random.",
   "TrickyInfoLong": "(Add-ons):\nAs the Tricky, your kills will have a random death reason.",
   "TiredInfoLong": "(Add-ons):\nWhenever Tired kills (or uses kill ability on) someone, alternatively whenever they complete a task, they will temporarily get lower vision & lower speed.",
@@ -3760,5 +3765,9 @@
   "PlagueDoctorCanInfectSelf": "Can Infect Self",
   "PlagueDoctorCanInfectVent": "Can Infect While In Vent",
 
-  "WinnerRoleText.PlagueDoctor": "Plague Scientist Wins!"
+  "WinnerRoleText.PlagueDoctor": "Plague Scientist Wins!",
+
+  "ImpCanBeHaste": "<color=#ff1919>Impostors</color> can become Haste",
+  "CrewCanBeHaste": "<color=#8cffff>Crewmates</color> can become Haste",
+  "NeutralCanBeHaste": "<color=#7f8c8d>Neutrals</color> can become Haste"
 }

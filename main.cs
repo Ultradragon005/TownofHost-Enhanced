@@ -822,6 +822,7 @@ public enum CustomRoles
     Gravestone,
     Guesser,
     Hurried,
+    Haste,
     Infected,
     Influenced,
     Knighted,

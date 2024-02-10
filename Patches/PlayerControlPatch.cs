@@ -846,6 +846,10 @@ class CheckMurderPatch
                     target.SetRealKiller(killer);
                     RPC.PlaySoundRPC(killer.PlayerId, Sounds.KillSound);
                     return false;
+
+                case CustomRoles.Haste:
+                    Haste.OnCheckAdittionalMurder(killer); // when no other methods call it, e.g checkdouble click happen or vanilla impostor etc..
+                    break;
             }
         }
 
@@ -2815,6 +2819,10 @@ class FixedUpdateInNormalGamePatch
                         Solsticer.OnFixedUpdate(player);
                         break;
                 }
+                if (player.Is(CustomRoles.Haste))
+                {
+                    Haste.OnFixedUpdate(player);
+                }
 
                 // Revolutionist
                 #region Revolutionist Timer
@@ -3594,6 +3602,12 @@ class CoExitVentPatch
 
         if (Mole.IsEnable)
             Mole.OnExitVent(__instance.myPlayer, id);
+
+        // Switch() not neccessary right now.
+        if (__instance.myPlayer.GetCustomSubRoles().Any(x => x.Is(CustomRoles.Haste))) 
+        {
+            Haste.ExitVent(__instance.myPlayer);
+        }
     }
 }
 
@@ -3801,6 +3815,15 @@ class EnterVentPatch
                         Main.TimeMasterBackTrack.Add(player.PlayerId, player.GetCustomPosition());
                     }
                 }
+            }
+        }
+        foreach (var subRole in pc.GetCustomSubRoles())
+        {
+            switch (subRole)
+            {
+                case CustomRoles.Haste:
+                    Haste.CoEnterVent(pc);
+                    break;
             }
         }
     }

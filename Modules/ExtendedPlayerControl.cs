@@ -2,6 +2,7 @@ using AmongUs.GameOptions;
 using HarmonyLib;
 using Hazel;
 using InnerNet;
+using MS.Internal.Xml.XPath;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ using TOHE.Roles.Impostor;
 using TOHE.Roles.Neutral;
 using UnityEngine;
 using static TOHE.Translator;
+using static UnityEngine.GraphicsBuffer;
 
 namespace TOHE;
 
@@ -1069,6 +1071,7 @@ static class ExtendedPlayerControl
                 Quizmaster.SetKillCooldown(player.PlayerId);
                 break;
         }
+        
         if (player.PlayerId == LastImpostor.currentId)
             LastImpostor.SetKillCooldown();
 
@@ -1076,12 +1079,16 @@ static class ExtendedPlayerControl
             Main.AllPlayerKillCooldown[player.PlayerId] = Mare.KillCooldownInLightsOut.GetFloat();
 
         if (player.Is(CustomRoles.Overclocked))
+        {
             Main.AllPlayerKillCooldown[player.PlayerId] -= Main.AllPlayerKillCooldown[player.PlayerId] * (Options.OverclockedReduction.GetFloat() / 100);
+            if (Haste.TrueKCD.ContainsKey(player.PlayerId)) Haste.TrueKCD[player.PlayerId] -= Haste.TrueKCD[player.PlayerId] * (Options.OverclockedReduction.GetFloat() / 100); 
+        }
         
         if (Main.KilledDiseased.ContainsKey(player.PlayerId))
         {
             Main.AllPlayerKillCooldown[player.PlayerId] = Main.AllPlayerKillCooldown[player.PlayerId] + Main.KilledDiseased[player.PlayerId] * Options.DiseasedCDOpt.GetFloat();
             Logger.Info($"kill cd of player set to {Main.AllPlayerKillCooldown[player.PlayerId]}", "Diseased");
+            if (Haste.TrueKCD.ContainsKey(player.PlayerId)) Haste.TrueKCD[player.PlayerId] = Haste.TrueKCD[player.PlayerId] + Main.KilledDiseased[player.PlayerId] * Options.DiseasedCDOpt.GetFloat(); 
         }
         if (Main.KilledAntidote.ContainsKey(player.PlayerId))
         {
@@ -1089,6 +1096,7 @@ static class ExtendedPlayerControl
             if (kcd < 0) kcd = 0;
             Main.AllPlayerKillCooldown[player.PlayerId] = kcd;
             Logger.Info($"kill cd of player set to {Main.AllPlayerKillCooldown[player.PlayerId]}", "Antidote");
+            if (Haste.TrueKCD.ContainsKey(player.PlayerId)) Haste.TrueKCD[player.PlayerId] = Haste.TrueKCD[player.PlayerId] - Main.KilledAntidote[player.PlayerId] * Options.AntidoteCDOpt.GetFloat();
         }
         if (!player.HasImpKillButton(considerVanillaShift: false))
             Main.AllPlayerKillCooldown[player.PlayerId] = 300f;
@@ -1096,6 +1104,13 @@ static class ExtendedPlayerControl
         {
             if (player.Is(CustomRoles.Chronomancer)) return;
             Main.AllPlayerKillCooldown[player.PlayerId] = 0.3f;
+        }
+        if (player.Is(CustomRoles.Haste))
+        {
+            Logger.Info("Yay! I activated!", "HasteReset");
+            Haste.HasChanged[player.PlayerId] = false;
+            Haste.Activate[player.PlayerId] = true;
+            if(Haste.TrueKCD.ContainsKey(player.PlayerId)) Logger.Info($"{Haste.TrueKCD[player.PlayerId]} is haste TRUEKCD", "HasteReset"); 
         }
     }
     public static bool IsNonCrewSheriff(this PlayerControl sheriff)
