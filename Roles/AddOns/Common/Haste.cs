@@ -62,12 +62,15 @@ namespace TOHE.Roles.AddOns.Common
             {
                 newKCD = TrueKCD[target.PlayerId];
                 HasChanged[target.PlayerId] = true;
-                Main.AllPlayerKillCooldown[target.PlayerId] = TrueKCD[target.PlayerId];
-                target.MarkDirtySettings();
+                //Main.AllPlayerKillCooldown[target.PlayerId] = TrueKCD[target.PlayerId];
+                //target.MarkDirtySettings();
             }
             
             if (HasChanged[target.PlayerId] && NextUnix + 1 <= Utils.GetTimeStamp())
             {
+                
+                Main.AllPlayerKillCooldown[target.PlayerId] = TrueKCD[target.PlayerId];
+                target.MarkDirtySettings(); // how the fuck is this the fix, IT ALSO SOMEFUCKING HOW gets true shading, nah I'm dead.
                 Activate[target.PlayerId] = false;
                 NextUnix = Utils.GetTimeStamp();
                 if(!(newKCD <= 1)) newKCD --;
