@@ -2,6 +2,7 @@ using AmongUs.GameOptions;
 using HarmonyLib;
 using Hazel;
 using InnerNet;
+using MS.Internal.Xml.XPath;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ using TOHE.Roles.Impostor;
 using TOHE.Roles.Neutral;
 using UnityEngine;
 using static TOHE.Translator;
+using static UnityEngine.GraphicsBuffer;
 
 namespace TOHE;
 
@@ -1069,11 +1071,7 @@ static class ExtendedPlayerControl
                 Quizmaster.SetKillCooldown(player.PlayerId);
                 break;
         }
-        if (player.GetCustomSubRoles().Any(x => x.Is(CustomRoles.Haste)))
-        {
-            Haste.HasChanged[player.PlayerId] = false;
-            Haste.Activate[player.PlayerId] = true;
-        }
+        
         if (player.PlayerId == LastImpostor.currentId)
             LastImpostor.SetKillCooldown();
 
@@ -1101,6 +1099,13 @@ static class ExtendedPlayerControl
         {
             if (player.Is(CustomRoles.Chronomancer)) return;
             Main.AllPlayerKillCooldown[player.PlayerId] = 0.3f;
+        }
+        if (player.Is(CustomRoles.Haste))
+        {
+            Logger.Info("Yay! I activated!", "HasteReset");
+            Haste.HasChanged[player.PlayerId] = false;
+            Haste.Activate[player.PlayerId] = true;
+            if(Haste.TrueKCD.ContainsKey(player.PlayerId)) Logger.Info($"{Haste.TrueKCD[player.PlayerId]} is haste TRUEKCD", "HasteReset"); 
         }
     }
     public static bool IsNonCrewSheriff(this PlayerControl sheriff)

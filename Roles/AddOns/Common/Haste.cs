@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using MS.Internal.Xml.XPath;
+using System.Collections.Generic;
+using static UnityEngine.GraphicsBuffer;
 
 namespace TOHE.Roles.AddOns.Common
 {
@@ -53,13 +55,15 @@ namespace TOHE.Roles.AddOns.Common
 
         public static void OnFixedUpdate(PlayerControl target)
         {
+            if (!Main.AllPlayerKillCooldown.ContainsKey(target.PlayerId)) return;
+            if (!TrueKCD.ContainsKey(target.PlayerId)) TrueKCD.Add(target.PlayerId, Main.AllPlayerKillCooldown[target.PlayerId]);
+
             if (!HasChanged[target.PlayerId] && Activate[target.PlayerId])
             {
-                newKCD = Main.AllPlayerKillCooldown[target.PlayerId];
-                TrueKCD[target.PlayerId] = Main.AllPlayerKillCooldown[target.PlayerId];
+                newKCD = TrueKCD[target.PlayerId];
+                HasChanged[target.PlayerId] = true;
                 Main.AllPlayerKillCooldown[target.PlayerId] = TrueKCD[target.PlayerId];
                 target.MarkDirtySettings();
-                HasChanged[target.PlayerId] = true;
             }
             
             if (HasChanged[target.PlayerId] && NextUnix + 1 <= Utils.GetTimeStamp())
@@ -78,6 +82,7 @@ namespace TOHE.Roles.AddOns.Common
 
         public static void OnCheckAdittionalMurder(PlayerControl killer)
         {
+            Main.AllPlayerKillCooldown[killer.PlayerId] = TrueKCD[killer.PlayerId];
             killer.ResetKillCooldown();
         }
     }
