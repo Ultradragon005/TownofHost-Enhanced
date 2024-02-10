@@ -1,3 +1,5 @@
+using TOHE.Roles.AddOns.Common;
+
 namespace TOHE.Roles.AddOns.Impostor;
 
 public static class LastImpostor
@@ -19,6 +21,7 @@ public static class LastImpostor
         if (currentId == byte.MaxValue) return;
         if (!Main.AllPlayerKillCooldown.TryGetValue(currentId, out var x)) return;
         Main.AllPlayerKillCooldown[currentId] -= Main.AllPlayerKillCooldown[currentId] * (CooldownReduction.GetFloat() / 100);
+        if (Haste.TrueKCD.ContainsKey(currentId)) Haste.TrueKCD[currentId] -= Haste.TrueKCD[currentId] * (CooldownReduction.GetFloat() / 100);
     }
     public static bool CanBeLastImpostor(PlayerControl pc)
         => pc.IsAlive() && !pc.Is(CustomRoles.LastImpostor)&& !pc.Is(CustomRoles.Overclocked) && pc.Is(CustomRoleTypes.Impostor);
