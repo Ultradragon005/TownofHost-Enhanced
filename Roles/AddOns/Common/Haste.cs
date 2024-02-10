@@ -6,7 +6,7 @@ namespace TOHE.Roles.AddOns.Common
 {
     public static class Haste
     {
-        private static readonly int Id = 30000;
+        private static readonly int Id = 28000; // temporary id, there's alot of merges right now
 
         public static OptionItem CanBeOnCrew;
         public static OptionItem CanBeOnImp;
