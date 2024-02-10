@@ -2819,7 +2819,7 @@ class FixedUpdateInNormalGamePatch
                         Solsticer.OnFixedUpdate(player);
                         break;
                 }
-                if (player.GetCustomSubRoles().Any(x => x.Is(CustomRoles.Haste)))
+                if (player.Is(CustomRoles.Haste))
                 {
                     Haste.OnFixedUpdate(player);
                 }
