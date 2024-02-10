@@ -1088,7 +1088,7 @@ static class ExtendedPlayerControl
         {
             Main.AllPlayerKillCooldown[player.PlayerId] = Main.AllPlayerKillCooldown[player.PlayerId] + Main.KilledDiseased[player.PlayerId] * Options.DiseasedCDOpt.GetFloat();
             Logger.Info($"kill cd of player set to {Main.AllPlayerKillCooldown[player.PlayerId]}", "Diseased");
-            if (Haste.TrueKCD.ContainsKey(player.PlayerId)) Haste.TrueKCD[player.PlayerId] = Main.AllPlayerKillCooldown[player.PlayerId] + Main.KilledDiseased[player.PlayerId] * Options.DiseasedCDOpt.GetFloat(); 
+            if (Haste.TrueKCD.ContainsKey(player.PlayerId)) Haste.TrueKCD[player.PlayerId] = Haste.TrueKCD[player.PlayerId] + Main.KilledDiseased[player.PlayerId] * Options.DiseasedCDOpt.GetFloat(); 
         }
         if (Main.KilledAntidote.ContainsKey(player.PlayerId))
         {
