@@ -1069,6 +1069,11 @@ static class ExtendedPlayerControl
                 Quizmaster.SetKillCooldown(player.PlayerId);
                 break;
         }
+        if (player.GetCustomSubRoles().Any(x => x.Is(CustomRoles.Haste)))
+        {
+            Haste.HasChanged[player.PlayerId] = false;
+            Haste.Activate[player.PlayerId] = true;
+        }
         if (player.PlayerId == LastImpostor.currentId)
             LastImpostor.SetKillCooldown();
 

@@ -3005,6 +3005,8 @@ public static class Options
 
         //SetupAdtRoleOptions(25300, CustomRoles.Ntr, tab: TabGroup.OtherRoles);
 
+        Haste.SetupCustomOptions();
+
         SetupAdtRoleOptions(25500, CustomRoles.Youtuber, canSetNum: true, tab: TabGroup.OtherRoles);
         
 

@@ -356,6 +356,7 @@ internal class ChangeRoleSettings
             Swapper.Init();
             Enigma.Init();
             ChiefOfPolice.Init();
+            Haste.Init();
             Mini.Init();
             Blackmailer.Init();
             Spy.Init();
@@ -1084,6 +1085,9 @@ internal class SelectRolesPatch
                             break;
                         case CustomRoles.Rainbow:
                             Rainbow.Add();
+                            break;
+                        case CustomRoles.Haste:
+                            Haste.Add(pc);
                             break;
 
                         default:
