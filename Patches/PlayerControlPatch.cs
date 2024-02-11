@@ -3604,7 +3604,7 @@ class CoExitVentPatch
             Mole.OnExitVent(__instance.myPlayer, id);
 
         // Switch() not neccessary right now.
-        if (__instance.myPlayer.GetCustomSubRoles().Any(x => x.Is(CustomRoles.Haste))) 
+        if (__instance.myPlayer.Is(CustomRoles.Haste)) 
         {
             Haste.ExitVent(__instance.myPlayer);
         }
@@ -3817,14 +3817,9 @@ class EnterVentPatch
                 }
             }
         }
-        foreach (var subRole in pc.GetCustomSubRoles())
+        if (pc.Is(CustomRoles.Haste))
         {
-            switch (subRole)
-            {
-                case CustomRoles.Haste:
-                    Haste.CoEnterVent(pc);
-                    break;
-            }
+            Haste.CoEnterVent(pc);
         }
     }
 }
