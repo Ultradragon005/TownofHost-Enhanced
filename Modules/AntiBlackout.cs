@@ -15,8 +15,39 @@ public static class AntiBlackout
     ///<summary>
     /// Check num alive Impostors & Crewmates & NeutralKillers
     ///</summary>
-    public static bool BlackOutIsActive => !Options.DisableAntiBlackoutProtects.GetBool() && CheckBlackOut();
-
+    public static bool ImpostorOverrideExiledPlayer => IsRequired && (IsSingleImpostor || Diff_CrewImp == 1);
+    ///<summary>
+    ///Whether to override the expulsion process due to Neutral Killers
+    ///</summary>
+    public static bool NeutralOverrideExiledPlayer => Options.TemporaryAntiBlackoutFix.GetBool() && CountNeutralKiller > 1 && !(IsSingleImpostor || Diff_CrewImp == 1);
+    ///<summary>
+    ///Whether there is only one impostors present in the setting
+    ///</summary>
+    public static bool IsSingleImpostor => Main.RealOptionsData != null ? Main.RealOptionsData.GetInt(Int32OptionNames.NumImpostors) <= 1 : Main.NormalOptions.NumImpostors <= 1;
+    ///<summary>
+    ///Whether processing within AntiBlackout is required
+    ///</summary>
+    public static bool IsRequired => Options.NoGameEnd.GetBool()
+        // Neutrals
+        || Jackal.IsEnable || BloodKnight.IsEnable
+        || Glitch.IsEnable || Infectious.IsEnable
+        || Juggernaut.IsEnable || Pelican.IsEnable
+        || Pickpocket.IsEnable || NSerialKiller.IsEnable
+        || Shroud.IsEnable || Traitor.IsEnable
+        || Virus.IsEnable || Werewolf.IsEnable
+        || Gamer.IsEnable || Succubus.IsEnable
+        || NWitch.IsEnable || Maverick.IsEnable
+        || RuthlessRomantic.IsEnable || Bandit.IsEnable
+        || Spiritcaller.IsEnable //|| Occultist.IsEnable
+        || Pyromaniac.IsEnable || Huntsman.IsEnable
+        || PlagueBearer.IsEnable || CustomRoles.Pestilence.RoleExist(true)
+        || HexMaster.IsEnable || Jinx.IsEnable
+        || Medusa.IsEnable || Poisoner.IsEnable
+        || PotionMaster.IsEnable || Wraith.IsEnable
+        || Necromancer.IsEnable || Doppelganger.IsEnable 
+        || PlagueDoctor.IsEnable || CustomRoles.Sidekick.RoleExist(true)
+        || (CustomRoles.Arsonist.RoleExist(true) && Options.ArsonistCanIgniteAnytime.GetBool()); 
+        
     ///<summary>
     /// Count alive players and check black out 
     ///</summary>
