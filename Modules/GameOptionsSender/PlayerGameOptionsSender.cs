@@ -123,7 +123,6 @@ public class PlayerGameOptionsSender(PlayerControl player) : GameOptionsSender
             case CustomRoles.SabotageMaster:
        //     case CustomRoles.Mario:
             case CustomRoles.EngineerTOHE:
-            case CustomRoles.Phantom:
             case CustomRoles.Crewpostor:
             case CustomRoles.Taskinator:
           //  case CustomRoles.Jester:

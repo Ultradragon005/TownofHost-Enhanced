@@ -224,12 +224,6 @@ public static class GuessManager
                     else pc.ShowPopUp(GetString("MiniGuessMax"));
                     return true;
                 }
-                if (pc.Is(CustomRoles.Phantom) && !Options.PhantomCanGuess.GetBool())
-                {
-                    if (!isUI) Utils.SendMessage(GetString("GuessDisabled"), pc.PlayerId);
-                    else pc.ShowPopUp(GetString("GuessDisabled"));
-                    return true;
-                }
                 if (target.Is(CustomRoles.Workaholic) && Options.WorkaholicVisibleToEveryone.GetBool())
                 {
                     if (!isUI) Utils.SendMessage(GetString("GuessWorkaholic"), pc.PlayerId);
@@ -364,12 +358,6 @@ public static class GuessManager
                     else pc.ShowPopUp(GetString("GuessPestilence"));
                     guesserSuicide = true;
                     Logger.Msg($" {guesserSuicide}", "guesserSuicide - Is Active 1");
-                }
-                if (role == CustomRoles.Phantom && target.Is(CustomRoles.Phantom))
-                {
-                    if (!isUI) Utils.SendMessage(GetString("GuessPhantom"), pc.PlayerId);
-                    else pc.ShowPopUp(GetString("GuessPhantom"));
-                    return true;
                 }
                 if (target.Is(CustomRoles.Masochist))
                 {
@@ -515,13 +503,7 @@ public static class GuessManager
                        if (!isUI) Utils.SendMessage(GetString("GuessImpRole"), pc.PlayerId);
                        else pc.ShowPopUp(GetString("GuessImpRole"));
                        return true;
-                   }
-                   if ((role == CustomRoles.Phantom && pc.Is(CustomRoleTypes.Crewmate) && target.Is(CustomRoleTypes.Crewmate) && !Options.CrewCanGuessCrew.GetBool()) && Options.GuesserMode.GetBool())
-                   {
-                       if (!isUI) Utils.SendMessage(GetString("GuessCrewRole"), pc.PlayerId);
-                       else pc.ShowPopUp(GetString("GuessCrewRole"));
-                       return true;
-                   } */
+                   }*/
 
                 if (target.Is(CustomRoles.Merchant) && Merchant.IsBribedKiller(pc, target))
                 {

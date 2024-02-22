@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TOHE.Modules;
+using TOHE.Roles._Ghosts_.Crewmate;
 using TOHE.Roles.AddOns.Common;
 using TOHE.Roles.AddOns.Crewmate;
 using TOHE.Roles.AddOns.Impostor;
@@ -653,9 +654,6 @@ public static class Options
 
     public static OptionItem MasochistKillMax;
 
-    public static OptionItem PhantomCanVent;
-    public static OptionItem PhantomSnatchesWin;
-    public static OptionItem PhantomCanGuess;
 
     public static OptionItem ProvKillCD;
 
@@ -793,7 +791,6 @@ public static class Options
     public static OverrideTasksData TransporterTasks;
     public static OverrideTasksData WorkaholicTasks;
     public static OverrideTasksData CrewpostorTasks;
-    public static OverrideTasksData PhantomTasks;
     public static OverrideTasksData GuardianTasks;
     public static OverrideTasksData OpportunistTasks;
     public static OverrideTasksData MayorTasks;
@@ -1973,6 +1970,8 @@ public static class Options
 
         Retributionist.SetupCustomOptions();
 
+        Phantom.SetupCustomOptions();
+
         #endregion
 
         #region Neutrals Settings
@@ -2060,14 +2059,6 @@ public static class Options
         
         Succubus.SetupCustomOption();
         
-        SetupRoleOptions(14900, TabGroup.NeutralRoles, CustomRoles.Phantom);
-        PhantomCanVent = BooleanOptionItem.Create(14902, "CanVent", false, TabGroup.NeutralRoles, false)
-            .SetParent(CustomRoleSpawnChances[CustomRoles.Phantom]);
-        PhantomSnatchesWin = BooleanOptionItem.Create(14903, "SnatchesWin", false, TabGroup.NeutralRoles, false)
-            .SetParent(CustomRoleSpawnChances[CustomRoles.Phantom]);
-        PhantomCanGuess = BooleanOptionItem.Create(14904, "CanGuess", false, TabGroup.NeutralRoles, false)
-            .SetParent(CustomRoleSpawnChances[CustomRoles.Phantom]);
-        PhantomTasks = OverrideTasksData.Create(14905, TabGroup.NeutralRoles, CustomRoles.Phantom);
         
         Pirate.SetupCustomOption();
         
