@@ -195,6 +195,9 @@ internal class CopyCat : RoleBase
                 case CustomRoles.Eraser:
                     role = CustomRoles.Cleanser;
                     break;
+                case CustomRoles.Nemesis:
+                    role = CustomRoles.Retributionist;
+                    break;
                 case CustomRoles.Visionary:
                     role = CustomRoles.Oracle;
                     break;

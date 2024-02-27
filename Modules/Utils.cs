@@ -564,7 +564,7 @@ public static class Utils
             case CustomRoles.SchrodingersCat:
             case CustomRoles.Parasite:
             case CustomRoles.Minion:
-            case CustomRoles.Nemesis:
+            case CustomRoles.Bloodmoon:
             case CustomRoles.Crusader:
             case CustomRoles.Refugee:
             case CustomRoles.Jester:
@@ -1014,11 +1014,11 @@ public static class Utils
                 case CustomRoles.CursedSoul:
                     ProgressText.Append(CursedSoul.GetCurseLimit());
                     break;
-                case CustomRoles.Retributionist:
-                    ProgressText.Append(Retributionist.GetRetributeLimit(playerId));
+                case CustomRoles.Hawk:
+                    ProgressText.Append(Hawk.GetSnatchLimit(playerId));
                     break;
-                case CustomRoles.Nemesis:
-                    ProgressText.Append(Nemesis.GetRevengeLimit(playerId));
+                case CustomRoles.Bloodmoon:
+                    ProgressText.Append(Bloodmoon.GetRevengeLimit(playerId));
                     break;
                 case CustomRoles.Warden:
                     ProgressText.Append(Warden.GetNotifyLimit(playerId));
@@ -2450,6 +2450,21 @@ public static class Utils
                                     TargetRoleText = $"<size={fontSize}>{Tracker.GetArrowAndLastRoom(seer, target)}</size>\r\n";
                                 break;
 
+                            case CustomRoles.Lookout:
+                                if (seer.IsAlive() && target.IsAlive())
+                                    TargetPlayerName = (ColorString(GetRoleColor(CustomRoles.Lookout), " " + target.PlayerId.ToString()) + " " + TargetPlayerName);
+                                break;
+
+                            case CustomRoles.Nemesis:
+                                if (!seer.IsAlive() && target.IsAlive())
+                                    TargetPlayerName = ColorString(GetRoleColor(CustomRoles.Nemesis), target.PlayerId.ToString()) + " " + TargetPlayerName;
+                                break;
+
+
+                            case CustomRoles.Retributionist:
+                                if (!seer.IsAlive() && target.IsAlive())
+                                    TargetPlayerName = ColorString(GetRoleColor(CustomRoles.Retributionist), target.PlayerId.ToString()) + " " + TargetPlayerName;
+                                break;
                             case CustomRoles.Swapper:
                                 if (seer.IsAlive() && target.IsAlive())
                                     TargetPlayerName = ColorString(GetRoleColor(CustomRoles.Swapper), target.PlayerId.ToString()) + " " + TargetPlayerName;
@@ -2625,7 +2640,7 @@ public static class Utils
         if (Spiritualist.IsEnable) Spiritualist.AfterMeetingTasks();
         if (Penguin.IsEnable) Penguin.AfterMeetingTasks();
         if (Taskinator.IsEnable) Taskinator.AfterMeetingTasks();
-        if (Retributionist.IsEnable) Retributionist.AfterMeetingTasks(); 
+        if (Hawk.IsEnable) Hawk.AfterMeetingTasks(); 
         if (PlagueDoctor.IsEnable) PlagueDoctor.AfterMeetingTasks();
         if (Jailer.IsEnable) Jailer.AfterMeetingTasks();
         if (Pirate.IsEnable) Pirate.AfterMeetingTask();
@@ -2885,6 +2900,19 @@ public static class Utils
     }
     public static string RemoveHtmlTagsTemplate(this string str) => Regex.Replace(str, "", "");
     public static string RemoveHtmlTags(this string str) => Regex.Replace(str, "<[^>]*?>", "");
+    public static bool CanNemesisKill()
+    {
+        if (Main.PlayerStates == null) return false;
+        //  Number of Living Impostors excluding Nemesis
+        int LivingImpostorsNum = 0;
+        foreach (var pc in Main.AllAlivePlayerControls)
+        {
+            var role = pc.GetCustomRole();
+            if (role != CustomRoles.Nemesis && role.IsImpostor()) LivingImpostorsNum++;
+        }
+
+        return LivingImpostorsNum <= 0;
+    }
     public static void FlashColor(Color color, float duration = 1f)
     {
         var hud = DestroyableSingleton<HudManager>.Instance;
