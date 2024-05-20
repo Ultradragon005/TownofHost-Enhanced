@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace TOHE;
 
-public abstract class RoleBase
+public abstract class RoleBase // 
 {
     public PlayerState _state;
 #pragma warning disable IDE1006
