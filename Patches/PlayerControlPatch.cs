@@ -154,6 +154,8 @@ class CheckMurderPatch
     }
     public static void Postfix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target, bool __state)
     {
+        if (!AmongUsClient.Instance.AmHost) return;
+
         if (__state)
         {
             Utils.NotifyRoles(SpecifySeer: __instance);
