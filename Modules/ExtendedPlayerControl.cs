@@ -165,6 +165,16 @@ static class ExtendedPlayerControl
         .EndRpc();
         sender.SendMessage();
     }
+
+    public static System.Collections.IEnumerator Trackerdisable(this PlayerControl Padoom)
+    {
+        if (Padoom.Data.Role is not TrackerRole tr) yield break;
+        while (tr.isTrackingActive)
+            yield return null;
+
+        Main.TrackerButton[Padoom.PlayerId] = false;
+
+    }
     public static void RpcSetRoleDesync(this PlayerControl player, RoleTypes role, bool canOverride, int clientId)
     {
         //player: 名前の変更対象

@@ -2103,6 +2103,18 @@ public static class Utils
             _ => true,
         };
     }
+
+    public static bool IsMethodOverridden(RoleBase roleInstance, string methodName)
+    {
+        Type baseType = typeof(RoleBase);
+        Type derivedType = roleInstance.GetType();
+
+        MethodInfo baseMethod = baseType.GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance);
+        MethodInfo derivedMethod = derivedType.GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance);
+
+        return baseMethod.DeclaringType != derivedMethod.DeclaringType;
+    }
+
     public static HashSet<Action<bool>> LateExileTask = [];
     public static void AfterMeetingTasks()
     {

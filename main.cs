@@ -141,6 +141,7 @@ public class Main : BasePlugin
     public static readonly Dictionary<string, int> PlayerQuitTimes = [];
     public static bool isChatCommand = false;
     public static bool MeetingIsStarted = false;
+    public static Dictionary<byte, bool> TrackerButton = [];
 
     public static readonly HashSet<byte> TasklessCrewmate = [];
     public static readonly HashSet<byte> OverDeadPlayerList = [];

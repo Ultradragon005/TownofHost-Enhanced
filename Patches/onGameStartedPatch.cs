@@ -68,6 +68,7 @@ internal class ChangeRoleSettings
             Main.AllKillers.Clear();
             Main.OverDeadPlayerList.Clear();
             Utils.LateExileTask.Clear();
+            Main.TrackerButton.Clear();
 
             Main.LastNotifyNames.Clear();
             Main.PlayerColors.Clear();
@@ -476,8 +477,13 @@ internal class SelectRolesPatch
 
             GhostRoleAssign.Add();
 
+
             foreach (var pc in Main.AllPlayerControls)
             {
+
+                if (Utils.IsMethodOverridden(pc.GetRoleClass(), "TrackerButton"))
+                    Main.TrackerButton.Add(pc.PlayerId, false);
+
                 if (pc.GetRoleClass()?.ThisRoleBase.GetRoleTypes() == RoleTypes.Shapeshifter) Main.CheckShapeshift.Add(pc.PlayerId, false);
 
                 pc.GetRoleClass()?.OnAdd(pc.PlayerId);

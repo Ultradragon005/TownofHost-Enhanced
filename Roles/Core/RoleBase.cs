@@ -221,6 +221,10 @@ public abstract class RoleBase
     /// </summary>
     public virtual bool KillFlashCheck(PlayerControl killer, PlayerControl target, PlayerControl seer) => false;
 
+
+    public virtual void TrackerButton(PlayerControl trackman, PlayerControl target)
+    { }
+
     /// <summary>
     /// When the target role has died and kill flash needs to run globally
     /// </summary>

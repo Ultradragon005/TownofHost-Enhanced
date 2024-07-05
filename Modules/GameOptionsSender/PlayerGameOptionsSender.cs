@@ -111,6 +111,11 @@ public class PlayerGameOptionsSender(PlayerControl player) : GameOptionsSender
          */
         player.BuildCustomGameOptions(ref opt);
 
+        if (Main.TrackerButton.ContainsKey(player.PlayerId))
+        {
+            AURoleOptions.TrackerDuration = 0.5f;
+        }
+
         AURoleOptions.EngineerCooldown = Mathf.Max(0.01f, AURoleOptions.EngineerCooldown);
 
         if (Main.AllPlayerKillCooldown.TryGetValue(player.PlayerId, out var killCooldown))
