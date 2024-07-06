@@ -1095,20 +1095,8 @@ class FixedUpdateInNormalGamePatch
                     Logger.Info($"Reset {player.GetRealName()}'s outfit", "LateOutfits..OnFixedUpdate");
                 }
 
-               //Logger.Info($"{player.Data.Role is TrackerRole}", "Playetracker?");
-
-                if(!lowLoad && player.Data.Role is TrackerRole tron)
-                {
-                    Logger.Info($"{Main.TrackerButton.TryGetValue(player.PlayerId, out bool did)}", "Trygetvalue?");
-                    Logger.Info($"{!did}", "Track?");
-                    Logger.Info($"{tron.isTrackingActive}", "Istracking?");
-
-                }
-
-
-
                 if (Main.TrackerButton.TryGetValue(player.PlayerId, out var didtrack) && !didtrack 
-                    && player.Data.Role is TrackerRole tar && tar.isTrackingActive)
+                    && player.Data.Role.TryCast<TrackerRole>() is TrackerRole tar && tar.isTrackingActive)
                 {
 
                     Main.TrackerButton[player.PlayerId] = true;
