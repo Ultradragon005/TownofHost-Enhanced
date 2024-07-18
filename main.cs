@@ -7,8 +7,6 @@ using Il2CppInterop.Runtime.Injection;
 using System;
 using System.IO;
 using System.Reflection;
-using System.Text;
-using System.Text.Json;
 using TOHE.Roles.Core;
 using TOHE.Roles.Double;
 using TOHE.Roles.Neutral;
